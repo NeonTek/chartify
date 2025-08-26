@@ -66,6 +66,8 @@
     "zod": "3.25.67"
   },
   "devDependencies": {
+    "@types/papaparse": "^5.3.11",
+    "eslint": "^8.57.0",
     "@tailwindcss/postcss": "^4.1.9",
     "@types/node": "^22",
     "@types/react": "^19",
