@@ -61,7 +61,7 @@ export default function LandingPage() {
           </div>
           <div className="rounded-lg border bg-card p-3">
             <img
-              src="/placeholder.jpg"
+              src="/hero.jpg"
               alt="Chartify dashboard preview"
               className="h-[320px] w-full rounded-md object-cover"
             />
@@ -118,8 +118,8 @@ export default function LandingPage() {
 
         {/* Footer */}
         <footer className="mx-auto max-w-6xl px-4 py-10 text-center text-xs text-muted-foreground">
-          <p>Built with Next.js and shadcn/ui. Charts powered by Chart.js.</p>
-          <p className="mt-1">All data stays on device.</p>
+          <p>&copy; NeonTek</p>
+          <p className="mt-1">All Rigts Reserved</p>
         </footer>
       </main>
     </div>
