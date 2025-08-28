@@ -11,9 +11,9 @@ import Image from "next/image"
 
 export default function LandingPage() {
   const neontekApps = [
-    { name: "App One", href: "https://neontek.co.ke/apps/app-one", description: "A brief, compelling description of App One." },
-    { name: "App Two", href: "https://neontek.co.ke/apps/app-two", description: "A brief, compelling description of App Two." },
-    { name: "App Three", href: "https://neontek.co.ke/apps/app-three", description: "A brief, compelling description of App Three." },
+    { name: "NeonTek Fapiao", href: "https://neontek.co.ke/apps/fapiao", description: "An easy to use document generator that instantly generates documents such as Invoices, Quotations, Receipts and Delivery notes professionally" },
+    { name: "NeonTek QR Code Generator", href: "https://neontek.co.ke/apps/qr-generator", description: "Generate and share professional QR Codes for anything you could think of: Websites, WI-FI, Payments etc" },
+    { name: "NeonTek TekScan", href: "https://neontek.co.ke/apps/tekscan", description: "Upload a PDF document and let our fine-tuned AI analyze it and answer any questions you might have concerning it." },
   ];
 
   return (
@@ -54,7 +54,7 @@ export default function LandingPage() {
               data visualization. 📊
             </h1>
             <p className="mt-4 text-lg text-muted-foreground md:max-w-xl">
-              Powered by NeonTek, **Chartify** lets you upload any CSV, JSON, or Excel file and create professional charts in seconds. All processing is **client-side**, ensuring your data remains private and secure.
+              Powered by NeonTek, Chartify lets you upload any CSV, JSON, or Excel file and create professional charts in seconds. All processing is client-side, ensuring your data remains private and secure.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4 md:justify-start">
               <Link href="/app">
