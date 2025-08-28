@@ -324,228 +324,224 @@ export default function Page() {
 
   return (
     <SidebarProvider defaultOpen={true}>
-      <div className="flex flex-col">
-      <Header />
 
-        <div className="flex min-h-screen">
-          {/* Left: Data Panel as collapsible sidebar */}
-          <Sidebar collapsible="icon">
-            <SidebarHeader className="px-2 py-2">
-              <div className="flex items-center gap-2">
-                <Wand2 className="h-5 w-5 text-primary" aria-hidden />
-                <span className="font-semibold">Chartify</span>
-              </div>
-            </SidebarHeader>
-            <SidebarContent>
-              <SidebarGroup>
-                <SidebarGroupLabel>Data</SidebarGroupLabel>
-                <SidebarGroupContent>
-                  {!rows.length ? (
-                    <div className="p-2">
-                      <DataUpload onDataLoaded={onDataLoaded} />
-                    </div>
-                  ) : (
-                    <div className="p-2 space-y-2">
-                      <div className="flex items-center justify-between">
-                        <div className="text-xs text-muted-foreground">
-                          {columns.length} columns • {filteredRows.length}/{rows.length} rows
-                        </div>
-                        <Button variant="ghost" size="icon" onClick={onClearData} aria-label="Clear data">
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                      <Separator />
-                      <SidebarMenu>
-                        {columns.map((col) => (
-                          <SidebarMenuItem key={col.name}>
-                            <SidebarMenuButton
-                              className="cursor-grab active:cursor-grabbing"
-                              draggable
-                              onDragStart={(e) => onDragStartCol(e, col.name)}
-                              onClick={() => onColumnClickAssign(col.name)}
-                              title={`Drag to a field. Type: ${col.type}`}
-                            >
-                              <TypeIcon t={col.type} />
-                              <span>{col.name}</span>
-                            </SidebarMenuButton>
-                          </SidebarMenuItem>
-                        ))}
-                      </SidebarMenu>
-                    </div>
-                  )}
-                </SidebarGroupContent>
-              </SidebarGroup>
-            </SidebarContent>
-          </Sidebar>
-
-          {/* Center + Right */}
-          <SidebarInset>
-            {/* Header */}
-            <header className="sticky top-0 z-20 border-b bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/40">
-              <div className="mx-auto flex max-w-[1400px] items-center gap-2 px-4 py-2">
-                <SidebarTrigger />
-                <div className="flex-1" />
-                {/* Mobile config */}
-                <Sheet open={configOpen} onOpenChange={setConfigOpen}>
-                  <SheetTrigger asChild>
-                    <Button variant="outline" size="sm" className="md:hidden bg-transparent">
-                      <PanelRight className="mr-2 h-4 w-4" />
-                      Configure
-                    </Button>
-                  </SheetTrigger>
-                  <SheetContent side="right" className="w-[90vw] sm:w-[480px] p-0">
-                    <SheetHeader className="px-4 py-3">
-                      <SheetTitle>Configuration</SheetTitle>
-                    </SheetHeader>
-                    <div className="h-[calc(100vh-56px)] overflow-y-auto p-4">
-                      <ConfigPanel
-                        chartType={chartType}
-                        setChartType={setChartType}
-                        mapBarLine={mapBarLine}
-                        setMapBarLine={setMapBarLine}
-                        mapScatter={mapScatter}
-                        setMapScatter={setMapScatter}
-                        mapPie={mapPie}
-                        setMapPie={setMapPie}
-                        paletteKey={paletteKey}
-                        setPaletteKey={setPaletteKey}
-                        showLegend={showLegend}
-                        setShowLegend={setShowLegend}
-                        showDataLabels={showDataLabels}
-                        setShowDataLabels={setShowDataLabels}
-                        title={title}
-                        setTitle={setTitle}
-                        xLabel={xLabel}
-                        setXLabel={setXLabel}
-                        yLabel={yLabel}
-                        setYLabel={setYLabel}
-                        columns={columns}
-                        DropField={DropField}
-                        clearMapField={clearMapField}
-                        filters={filters}
-                        addFilter={addFilter}
-                        removeFilter={removeFilter}
-                        updateFilter={updateFilter}
-                        getOpsForType={getOpsForType}
-                        getColType={getColType}
-                      />
-                    </div>
-                  </SheetContent>
-                </Sheet>
-
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={onExportPNG}
-                  className="hidden sm:inline-flex bg-transparent"
-                >
-                  <Download className="mr-2 h-4 w-4" />
-                  Export PNG
-                </Button>
-                <Button variant="outline" size="sm" onClick={onShare} className="hidden sm:inline-flex bg-transparent">
-                  <Share2 className="mr-2 h-4 w-4" />
-                  Share
-                </Button>
-              </div>
-            </header>
-
-            {/* Main Content */}
-            <main className="mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-4 px-4 py-4 md:grid-cols-[1fr_360px] lg:grid-cols-[1fr_420px]">
-              {/* Visualization Canvas */}
-              <section className="order-2 md:order-1 rounded-lg border bg-card p-3">
+      <div className="flex min-h-screen">
+        {/* Left: Data Panel as collapsible sidebar */}
+        <Sidebar collapsible="icon">
+          <SidebarHeader className="px-2 py-2">
+            <div className="flex items-center gap-2">
+              <Wand2 className="h-5 w-5 text-primary" aria-hidden />
+              <span className="font-semibold">Chartify</span>
+            </div>
+          </SidebarHeader>
+          <SidebarContent>
+            <SidebarGroup>
+              <SidebarGroupLabel>Data</SidebarGroupLabel>
+              <SidebarGroupContent>
                 {!rows.length ? (
-                  <div className="flex h-[65vh] items-center justify-center">
-                    <div className="max-w-md text-center">
-                      <h1 className="mb-2 text-2xl font-semibold">Upload your Data (CSV, XLS or JSON)</h1>
-                      <p className="mb-4 text-sm text-muted-foreground">
-                        Drag a file into the left panel, or use the upload button to get started. All processing stays in
-                        your browser.
-                      </p>
-                      <div className="mx-auto w-full max-w-sm">
-                        <DataUpload onDataLoaded={onDataLoaded} inline />
-                      </div>
-                    </div>
+                  <div className="p-2">
+                    <DataUpload onDataLoaded={onDataLoaded} />
                   </div>
                 ) : (
-                  <>
-                    <ChartCanvas
-                      rows={filteredRows}
-                      columns={columns}
-                      chartType={chartType}
-                      mapBarLine={mapBarLine}
-                      mapScatter={mapScatter}
-                      mapPie={mapPie}
-                      palette={palettes[paletteKey] || palettes.blueGreen}
-                      title={title}
-                      xLabel={xLabel}
-                      yLabel={yLabel}
-                      showLegend={showLegend}
-                      showDataLabels={showDataLabels}
-                      onReady={setChartAPI}
-                    />
-                    <div className="mt-3 flex flex-wrap items-center justify-between gap-2 sm:hidden">
-                      <Button variant="outline" onClick={onExportPNG} className="w-full bg-transparent">
-                        <Download className="mr-2 h-4 w-4" /> Export PNG
-                      </Button>
-                      <Button variant="outline" onClick={onShare} className="w-full bg-transparent">
-                        <Share2 className="mr-2 h-4 w-4" /> Share
+                  <div className="p-2 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className="text-xs text-muted-foreground">
+                        {columns.length} columns • {filteredRows.length}/{rows.length} rows
+                      </div>
+                      <Button variant="ghost" size="icon" onClick={onClearData} aria-label="Clear data">
+                        <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
-                  </>
+                    <Separator />
+                    <SidebarMenu>
+                      {columns.map((col) => (
+                        <SidebarMenuItem key={col.name}>
+                          <SidebarMenuButton
+                            className="cursor-grab active:cursor-grabbing"
+                            draggable
+                            onDragStart={(e) => onDragStartCol(e, col.name)}
+                            onClick={() => onColumnClickAssign(col.name)}
+                            title={`Drag to a field. Type: ${col.type}`}
+                          >
+                            <TypeIcon t={col.type} />
+                            <span>{col.name}</span>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      ))}
+                    </SidebarMenu>
+                  </div>
                 )}
-              </section>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </SidebarContent>
+        </Sidebar>
 
-              {/* Right Configuration Panel (desktop) */}
-              <aside className="order-1 md:order-2 hidden md:block">
-                <div className="sticky top-[56px] max-h-[calc(100vh-56px)] overflow-y-auto rounded-lg border bg-card p-4">
-                  <ConfigPanel
-                    chartType={chartType}
-                    setChartType={setChartType}
-                    mapBarLine={mapBarLine}
-                    setMapBarLine={setMapBarLine}
-                    mapScatter={mapScatter}
-                    setMapScatter={setMapScatter}
-                    mapPie={mapPie}
-                    setMapPie={setMapPie}
-                    paletteKey={paletteKey}
-                    setPaletteKey={setPaletteKey}
-                    showLegend={showLegend}
-                    setShowLegend={setShowLegend}
-                    showDataLabels={showDataLabels}
-                    setShowDataLabels={setShowDataLabels}
-                    title={title}
-                    setTitle={setTitle}
-                    xLabel={xLabel}
-                    setXLabel={setXLabel}
-                    yLabel={yLabel}
-                    setYLabel={setYLabel}
-                    columns={columns}
-                    DropField={DropField}
-                    clearMapField={clearMapField}
-                    filters={filters}
-                    addFilter={addFilter}
-                    removeFilter={removeFilter}
-                    updateFilter={updateFilter}
-                    getOpsForType={getOpsForType}
-                    getColType={getColType}
-                  />
-                  <Separator className="my-4" />
-                  <div className="flex gap-2">
-                    <Button variant="outline" onClick={onExportPNG} className="w-1/2 bg-transparent">
-                      <Download className="mr-2 h-4 w-4" />
-                      Export PNG
-                    </Button>
-                    <Button variant="outline" onClick={onShare} className="w-1/2 bg-transparent">
-                      <Share2 className="mr-2 h-4 w-4" />
-                      Share
-                    </Button>
+        {/* Center + Right */}
+        <SidebarInset>
+          {/* Header */}
+          <header className="sticky top-0 z-20 border-b bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/40">
+            <div className="mx-auto flex max-w-[1400px] items-center gap-2 px-4 py-2">
+              <SidebarTrigger />
+              <div className="flex-1" />
+              {/* Mobile config */}
+              <Sheet open={configOpen} onOpenChange={setConfigOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="outline" size="sm" className="md:hidden bg-transparent">
+                    <PanelRight className="mr-2 h-4 w-4" />
+                    Configure
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[90vw] sm:w-[480px] p-0">
+                  <SheetHeader className="px-4 py-3">
+                    <SheetTitle>Configuration</SheetTitle>
+                  </SheetHeader>
+                  <div className="h-[calc(100vh-56px)] overflow-y-auto p-4">
+                    <ConfigPanel
+                      chartType={chartType}
+                      setChartType={setChartType}
+                      mapBarLine={mapBarLine}
+                      setMapBarLine={setMapBarLine}
+                      mapScatter={mapScatter}
+                      setMapScatter={setMapScatter}
+                      mapPie={mapPie}
+                      setMapPie={setMapPie}
+                      paletteKey={paletteKey}
+                      setPaletteKey={setPaletteKey}
+                      showLegend={showLegend}
+                      setShowLegend={setShowLegend}
+                      showDataLabels={showDataLabels}
+                      setShowDataLabels={setShowDataLabels}
+                      title={title}
+                      setTitle={setTitle}
+                      xLabel={xLabel}
+                      setXLabel={setXLabel}
+                      yLabel={yLabel}
+                      setYLabel={setYLabel}
+                      columns={columns}
+                      DropField={DropField}
+                      clearMapField={clearMapField}
+                      filters={filters}
+                      addFilter={addFilter}
+                      removeFilter={removeFilter}
+                      updateFilter={updateFilter}
+                      getOpsForType={getOpsForType}
+                      getColType={getColType}
+                    />
+                  </div>
+                </SheetContent>
+              </Sheet>
+
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={onExportPNG}
+                className="hidden sm:inline-flex bg-transparent"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Export PNG
+              </Button>
+              <Button variant="outline" size="sm" onClick={onShare} className="hidden sm:inline-flex bg-transparent">
+                <Share2 className="mr-2 h-4 w-4" />
+                Share
+              </Button>
+            </div>
+          </header>
+
+          {/* Main Content */}
+          <main className="mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-4 px-4 py-4 md:grid-cols-[1fr_360px] lg:grid-cols-[1fr_420px]">
+            {/* Visualization Canvas */}
+            <section className="order-2 md:order-1 rounded-lg border bg-card p-3">
+              {!rows.length ? (
+                <div className="flex h-[65vh] items-center justify-center">
+                  <div className="max-w-md text-center">
+                    <h1 className="mb-2 text-2xl font-semibold">Upload your Data (CSV, XLS or JSON)</h1>
+                    <p className="mb-4 text-sm text-muted-foreground">
+                      Drag a file into the left panel, or use the upload button to get started. All processing stays in
+                      your browser.
+                    </p>
+                    <div className="mx-auto w-full max-w-sm">
+                      <DataUpload onDataLoaded={onDataLoaded} inline />
+                    </div>
                   </div>
                 </div>
-              </aside>
-            </main>
-          </SidebarInset>
-        </div>
-      <Footer />
+              ) : (
+                <>
+                  <ChartCanvas
+                    rows={filteredRows}
+                    columns={columns}
+                    chartType={chartType}
+                    mapBarLine={mapBarLine}
+                    mapScatter={mapScatter}
+                    mapPie={mapPie}
+                    palette={palettes[paletteKey] || palettes.blueGreen}
+                    title={title}
+                    xLabel={xLabel}
+                    yLabel={yLabel}
+                    showLegend={showLegend}
+                    showDataLabels={showDataLabels}
+                    onReady={setChartAPI}
+                  />
+                  <div className="mt-3 flex flex-wrap items-center justify-between gap-2 sm:hidden">
+                    <Button variant="outline" onClick={onExportPNG} className="w-full bg-transparent">
+                      <Download className="mr-2 h-4 w-4" /> Export PNG
+                    </Button>
+                    <Button variant="outline" onClick={onShare} className="w-full bg-transparent">
+                      <Share2 className="mr-2 h-4 w-4" /> Share
+                    </Button>
+                  </div>
+                </>
+              )}
+            </section>
+
+            {/* Right Configuration Panel (desktop) */}
+            <aside className="order-1 md:order-2 hidden md:block">
+              <div className="sticky top-[56px] max-h-[calc(100vh-56px)] overflow-y-auto rounded-lg border bg-card p-4">
+                <ConfigPanel
+                  chartType={chartType}
+                  setChartType={setChartType}
+                  mapBarLine={mapBarLine}
+                  setMapBarLine={setMapBarLine}
+                  mapScatter={mapScatter}
+                  setMapScatter={setMapScatter}
+                  mapPie={mapPie}
+                  setMapPie={setMapPie}
+                  paletteKey={paletteKey}
+                  setPaletteKey={setPaletteKey}
+                  showLegend={showLegend}
+                  setShowLegend={setShowLegend}
+                  showDataLabels={showDataLabels}
+                  setShowDataLabels={setShowDataLabels}
+                  title={title}
+                  setTitle={setTitle}
+                  xLabel={xLabel}
+                  setXLabel={setXLabel}
+                  yLabel={yLabel}
+                  setYLabel={setYLabel}
+                  columns={columns}
+                  DropField={DropField}
+                  clearMapField={clearMapField}
+                  filters={filters}
+                  addFilter={addFilter}
+                  removeFilter={removeFilter}
+                  updateFilter={updateFilter}
+                  getOpsForType={getOpsForType}
+                  getColType={getColType}
+                />
+                <Separator className="my-4" />
+                <div className="flex gap-2">
+                  <Button variant="outline" onClick={onExportPNG} className="w-1/2 bg-transparent">
+                    <Download className="mr-2 h-4 w-4" />
+                    Export PNG
+                  </Button>
+                  <Button variant="outline" onClick={onShare} className="w-1/2 bg-transparent">
+                    <Share2 className="mr-2 h-4 w-4" />
+                    Share
+                  </Button>
+                </div>
+              </div>
+            </aside>
+          </main>
+        </SidebarInset>
       </div>
 
     </SidebarProvider>
