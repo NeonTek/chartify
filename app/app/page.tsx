@@ -41,6 +41,8 @@ import { inferColumnsFromRows, applyFilters } from "@/lib/utils-data"
 import { palettes, paletteOptions } from "@/lib/palettes"
 import { decodeStateFromHash, encodeStateToHash } from "@/lib/share"
 import { cn } from "@/lib/utils"
+import { Header } from "@/components/header"
+import { Footer } from "@/components/Footer"
 
 // Icons for data types
 const TypeIcon = ({ t }: { t: ColumnType }) => {
@@ -322,6 +324,7 @@ export default function Page() {
 
   return (
     <SidebarProvider defaultOpen={true}>
+      <Header />
       <div className="flex min-h-screen">
         {/* Left: Data Panel as collapsible sidebar */}
         <Sidebar collapsible="icon">
@@ -540,6 +543,7 @@ export default function Page() {
           </main>
         </SidebarInset>
       </div>
+      <Footer />
     </SidebarProvider>
   )
 }
