@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { ArrowRight, CheckCircle2, Shield, Upload, Share2, ImageDown } from "lucide-react"
+import { ArrowRight, CheckCircle2, Shield, Upload, Share2, ImageDown, Twitter, Github, Linkedin } from "lucide-react" // <- Corrected import statement
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
