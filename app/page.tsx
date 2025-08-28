@@ -9,30 +9,41 @@ import { cn } from "@/lib/utils"
 
 export default function LandingPage() {
   const neontekApps = [
-    { name: "App One", href: "https://neontek.coke/apps/app-one", description: "A brief, compelling description of App One." },
-    { name: "App Two", href: "https://neontek.coke/apps/app-two", description: "A brief, compelling description of App Two." },
-    { name: "App Three", href: "https://neontek.coke/apps/app-three", description: "A brief, compelling description of App Three." },
+    { name: "App One", href: "https://neontek.co.ke/apps/app-one", description: "A brief, compelling description of App One." },
+    { name: "App Two", href: "https://neontek.co.ke/apps/app-two", description: "A brief, compelling description of App Two." },
+    { name: "App Three", href: "https://neontek.co.ke/apps/app-three", description: "A brief, compelling description of App Three." },
   ];
 
   return (
     <div className="bg-background text-foreground">
       {/* Header */}
-      <header className="sticky top-0 z-20 border-b bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/50">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
-          <Link href="https://neontek.coke" className="flex items-center gap-2">
-            <img src="/neontek-logo.png" alt="NeonTek Logo" className="h-8 w-auto" />
-            <span className="text-lg font-semibold sr-only md:not-sr-only">NeonTek</span>
+      <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-background/90 backdrop-blur-sm transition-colors duration-300">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Logo and Product Name */}
+        <Link href="https://neontek.co.ke" className="flex items-center space-x-2">
+          {/* NeonTek Logo */}
+          <img src="/neontek-logo(transparent).png" alt="NeonTek Logo" className="h-8 w-auto" />
+          <div className="hidden h-6 w-px bg-gray-300 md:block" />
+          {/* Product Name */}
+          <span className="text-xl font-bold tracking-tight text-foreground md:text-2xl">
+            Chartify
+          </span>
+        </Link>
+
+        {/* Navigation and CTA */}
+        <nav className="flex items-center space-x-4">
+          <Link href="https://neontek.co.ke/apps" className="hidden text-sm font-medium text-muted-foreground hover:text-cyan-500 transition-colors sm:inline-block">
+            Apps
           </Link>
-          <nav className="flex items-center gap-4">
-            <Link href="https://neontek.coke/apps" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hidden sm:inline">
-              Apps
-            </Link>
-            <Link href="/app">
-              <Button>Launch Chartify <ArrowRight className="ml-2 h-4 w-4" /></Button>
-            </Link>
-          </nav>
-        </div>
-      </header>
+          <Link href="/app">
+            <Button className="bg-cyan-500 text-white hover:bg-cyan-600 transition-colors duration-200">
+              Launch App
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+        </nav>
+      </div>
+    </header>
 
       {/* Hero Section */}
       <main>
@@ -140,7 +151,7 @@ export default function LandingPage() {
             ))}
           </div>
           <div className="mt-8 text-center">
-            <Link href="https://neontek.coke/apps">
+            <Link href="https://neontek.co.ke/apps">
               <Button size="lg" variant="outline">
                 See all apps <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -171,13 +182,71 @@ export default function LandingPage() {
       <Separator />
 
       {/* Footer */}
-      <footer className="mx-auto max-w-7xl px-4 py-10 text-center text-xs text-muted-foreground">
-        <p className="mt-1">&copy; {new Date().getFullYear()} NeonTek. All Rights Reserved.</p>
-        <div className="mt-2 flex justify-center space-x-4">
-          <Link href="https://neontek.coke/legal/terms-of-use" className="hover:underline">Terms of Use</Link>
-          <Link href="https://neontek.coke/privacy-policy" className="hover:underline">Privacy Policy</Link>
+      <footer className="w-full bg-gray-900 text-gray-300">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
+
+          {/* Column 1: Brand Info */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <img src="/neontek-logo(transparent).png" alt="NeonTek Logo" className="h-10 w-auto" />
+              <span className="text-xl font-bold text-white">Chartify</span>
+            </div>
+            <p className="text-sm">
+              Chartify is a client-side data visualization tool by NeonTek, designed for speed, simplicity, and privacy.
+            </p>
+            <div className="flex items-center space-x-4">
+              <a href="https://twitter.com/neontek" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                <Twitter className="h-6 w-6 text-gray-400 hover:text-white transition-colors" />
+              </a>
+              <a href="https://github.com/neontek" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <Github className="h-6 w-6 text-gray-400 hover:text-white transition-colors" />
+              </a>
+              <a href="https://linkedin.com/company/neontek" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <Linkedin className="h-6 w-6 text-gray-400 hover:text-white transition-colors" />
+              </a>
+            </div>
+          </div>
+
+          {/* Column 2: Chartify */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-white">Chartify</h3>
+            <ul className="space-y-2 text-sm">
+              <li><Link href="/app" className="hover:text-white transition-colors">Launch App</Link></li>
+              <li><Link href="#features" className="hover:text-white transition-colors">Features</Link></li>
+              <li><Link href="/help" className="hover:text-white transition-colors">Help</Link></li>
+              <li><Link href="https://blog.neontek.co.ke" className="hover:text-white transition-colors">Blog</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 3: NeonTek */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-white">NeonTek</h3>
+            <ul className="space-y-2 text-sm">
+              <li><Link href="https://neontek.co.ke" className="hover:text-white transition-colors">About Us</Link></li>
+              <li><Link href="https://neontek.co.ke/apps" className="hover:text-white transition-colors">Our Apps</Link></li>
+              <li><Link href="https://neontek.co.ke/services" className="hover:text-white transition-colors">Services</Link></li>
+              <li><Link href="https://neontek.co.ke/careers" className="hover:text-white transition-colors">Careers</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 4: Legal */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-white">Legal</h3>
+            <ul className="space-y-2 text-sm">
+              <li><Link href="https://neontek.co.ke/legal/terms-of-use" className="hover:text-white transition-colors">Terms of Use</Link></li>
+              <li><Link href="https://neontek.co.ke/legal/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+              <li><Link href="https://neontek.co.ke/legal/cookie-policy" className="hover:text-white transition-colors">Cookie Policy</Link></li>
+            </ul>
+          </div>
         </div>
-      </footer>
+
+        {/* Copyright and Bottom Links */}
+        <div className="mt-12 border-t border-gray-800 pt-8 text-center text-sm">
+          <p>&copy; {new Date().getFullYear()} NeonTek. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
     </div>
   )
 }
