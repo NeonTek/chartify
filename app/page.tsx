@@ -6,134 +6,157 @@ import { ArrowRight, CheckCircle2, Shield, Upload, Share2, ImageDown } from "luc
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
+import { cn } from "@/lib/utils"
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background text-foreground">
       {/* Header */}
       <header className="sticky top-0 z-20 border-b bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/50">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
           <div className="flex items-center gap-2">
             <div className="grid size-8 place-items-center rounded-md bg-primary/10 text-primary">
               <span className="text-sm font-bold">C</span>
             </div>
-            <span className="text-sm font-semibold">Chartify</span>
+            <span className="text-lg font-semibold">Chartify</span>
           </div>
           <div className="flex items-center gap-2">
             <Link href="/app">
-              <Button>
-                Launch App <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              <Button variant="ghost">Launch App</Button>
             </Link>
           </div>
         </div>
       </header>
 
-      {/* Hero */}
+      {/* Hero Section */}
       <main>
-        <section className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 py-12 md:grid-cols-2 md:py-16">
-          <div className="flex flex-col justify-center">
-            <h1 className="text-3xl font-semibold md:text-4xl">Interactive, client‑side data visualization.</h1>
-            <p className="mt-3 text-muted-foreground">
-              Upload CSV or JSON, drag columns, configure your chart, and share a single URL. Everything runs in your
-              browser—no servers, no data leaves your device.
+        <section className="relative mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 py-20 md:grid-cols-2 md:py-28">
+          <div className="flex flex-col justify-center text-center md:text-left">
+            <h1 className="text-4xl font-extrabold leading-tight md:text-5xl lg:text-6xl">
+              Instant, in-browser data <br className="hidden md:inline" />
+              visualization. 📊
+            </h1>
+            <p className="mt-4 text-lg text-muted-foreground md:max-w-xl">
+              Upload any **CSV, JSON, or Excel** file, drag-and-drop columns, and get a professional chart in seconds. All **client-side**, entirely private.
             </p>
-            <div className="mt-5 flex flex-wrap items-center gap-3">
+            <div className="mt-8 flex flex-wrap justify-center gap-4 md:justify-start">
               <Link href="/app">
-                <Button size="lg">
-                  Try Chartify <ArrowRight className="ml-2 h-4 w-4" />
+                <Button size="lg" className="shadow-lg">
+                  Get Started for Free <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
-              <a href="#features" className="text-sm underline-offset-4 hover:underline">
-                Learn more
+              <a href="#features" className="group text-sm font-medium text-primary hover:text-primary/80 transition-colors flex items-center gap-1">
+                <Button variant="ghost" size="lg" className="text-primary hover:text-primary-foreground">Learn more</Button>
               </a>
             </div>
-            <div className="mt-6 grid gap-2 text-sm">
-              <div className="flex items-center gap-2 text-emerald-600">
-                <CheckCircle2 className="h-4 w-4" />
-                <span>No sign-up required</span>
+            <div className="mt-8 grid gap-3 text-sm font-medium text-muted-foreground md:grid-cols-2">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                <span>No account required</span>
               </div>
-              <div className="flex items-center gap-2 text-emerald-600">
-                <CheckCircle2 className="h-4 w-4" />
-                <span>Works entirely offline after load</span>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                <span>Works offline after initial load</span>
               </div>
             </div>
           </div>
-          <div className="rounded-lg border bg-card p-3">
+          <div className="relative mt-8 md:mt-0 flex items-center justify-center">
             <img
               src="/hero.jpg"
               alt="Chartify dashboard preview"
-              className="h-[320px] w-full rounded-md object-cover"
+              className="w-full rounded-xl object-cover shadow-2xl transition-transform duration-500 hover:scale-[1.02]"
             />
-          </div>
-        </section>
-
-        <Separator />
-
-        {/* Features */}
-        <section id="features" className="mx-auto max-w-6xl px-4 py-12 md:py-16">
-          <h2 className="text-2xl font-semibold">What you can do</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <Feature
-              icon={<Upload className="h-5 w-5" />}
-              title="Upload CSV/JSON"
-              desc="Fast client-side parsing with smart type inference."
-            />
-            <Feature
-              icon={<Shield className="h-5 w-5" />}
-              title="Private by design"
-              desc="Your data never leaves your browser."
-            />
-            <Feature
-              icon={<Share2 className="h-5 w-5" />}
-              title="Shareable links"
-              desc="Encode your chart state into a single URL."
-            />
-            <Feature
-              icon={<ImageDown className="h-5 w-5" />}
-              title="Export PNG"
-              desc="Download a beautifully composed PNG of your chart."
-            />
-            <Feature
-              icon={<CheckCircle2 className="h-5 w-5" />}
-              title="Flexible charts"
-              desc="Bar, Line, Scatter, and Pie with grouping and filters."
-            />
-            <Feature
-              icon={<CheckCircle2 className="h-5 w-5" />}
-              title="Drag and drop"
-              desc="Assign columns to fields with drag-and-drop or clicks."
-            />
-          </div>
-          <div className="mt-8">
-            <Link href="/app">
-              <Button size="lg">
-                Launch App <ArrowRight className="ml-2 h-4 w-4" />
+             <div className="absolute top-0 right-0 p-4">
+              <Button variant="ghost" className="bg-background/80 backdrop-blur-sm shadow-md">
+                Live Demo
               </Button>
-            </Link>
+            </div>
           </div>
         </section>
 
-        <Separator />
+        <Separator className="my-16" />
 
-        {/* Footer */}
-        <footer className="mx-auto max-w-6xl px-4 py-10 text-center text-xs text-muted-foreground">
-          <p>&copy; NeonTek</p>
-          <p className="mt-1">All Rigts Reserved</p>
-        </footer>
+        {/* Features Section */}
+        <section id="features" className="mx-auto max-w-7xl px-4 py-16 md:py-24">
+          <div className="text-center">
+            <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary">Core Features</span>
+            <h2 className="mt-4 text-3xl font-bold md:text-4xl">All the power, none of the hassle.</h2>
+            <p className="mt-2 text-lg text-muted-foreground">Chartify simplifies your data workflow with powerful, in-browser tools.</p>
+          </div>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <Feature
+              icon={<Upload className="h-6 w-6" />}
+              title="Drag & Drop Upload"
+              desc="Seamlessly upload CSV, JSON, or Excel files. Our smart parser automatically infers data types and headers."
+            />
+            <Feature
+              icon={<Shield className="h-6 w-6" />}
+              title="Data Privacy First"
+              desc="Your data is your own. All processing happens locally in your browser, with no data ever sent to a server."
+            />
+            <Feature
+              icon={<Share2 className="h-6 w-6" />}
+              title="Instantly Shareable"
+              desc="Create a unique, shareable URL for your visualization. Anyone with the link can view your chart instantly."
+            />
+            <Feature
+              icon={<ImageDown className="h-6 w-6" />}
+              title="High-Res Exports"
+              desc="Download a beautiful, high-resolution PNG image of your chart, perfect for presentations or reports."
+            />
+            <Feature
+              icon={<CheckCircle2 className="h-6 w-6" />}
+              title="Powerful Customization"
+              desc="Customize your charts with multiple types, palettes, titles, and filters to tell your data's story."
+            />
+            <Feature
+              icon={<CheckCircle2 className="h-6 w-6" />}
+              title="Interactive Workflow"
+              desc="Map columns to chart axes with a simple drag-and-drop interface, making chart creation intuitive and fast."
+            />
+          </div>
+        </section>
+
+        <Separator className="my-16" />
+
+        {/* Call to Action Section */}
+        <section className="mx-auto max-w-6xl px-4 py-16 text-center md:py-24">
+          <div className="rounded-2xl bg-gradient-to-br from-primary to-blue-500 p-8 text-primary-foreground shadow-2xl">
+            <h2 className="text-3xl font-bold md:text-4xl">Ready to visualize your data?</h2>
+            <p className="mt-4 text-lg font-light opacity-90 md:max-w-2xl mx-auto">
+              Skip the complex software and server setups. Launch Chartify and start creating your first chart in seconds.
+            </p>
+            <div className="mt-8">
+              <Link href="/app">
+                <Button size="lg" variant="secondary" className="font-semibold shadow-lg">
+                  Launch Chartify <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
+
+      <Separator />
+
+      {/* Footer */}
+      <footer className="mx-auto max-w-6xl px-4 py-10 text-center text-xs text-muted-foreground">
+        <p className="mt-1">© {new Date().getFullYear()} NeonTek. All Rights Reserved.</p>
+      </footer>
     </div>
   )
 }
 
 function Feature({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
   return (
-    <div className="rounded-lg border bg-card p-4">
-      <div className="flex items-center gap-2">
-        <div className="grid size-8 place-items-center rounded-md bg-primary/10 text-primary">{icon}</div>
-        <h3 className="text-sm font-semibold">{title}</h3>
+    <div className="rounded-xl border bg-card p-6 shadow-sm transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+      <div className="flex items-center gap-3">
+        <div className="grid size-10 place-items-center rounded-lg bg-primary/10 text-primary">
+          {icon}
+        </div>
+        <h3 className="text-lg font-semibold">{title}</h3>
       </div>
-      <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
+      <p className="mt-4 text-base text-muted-foreground">{desc}</p>
     </div>
   )
 }
