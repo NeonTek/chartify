@@ -1,9 +1,9 @@
 "use client"
 
 import type React from "react"
-
 import { useRef, useState } from "react"
 import Papa from "papaparse"
+import * as XLSX from "xlsx"
 import { Button } from "@/components/ui/button"
 import { Upload } from "lucide-react"
 
@@ -27,16 +27,28 @@ export default function DataUpload({
     if (!files || !files.length) return
     const file = files[0]
     setLoading(true)
+    let data: any[] = []
+    const fileExtension = file.name.toLowerCase().split('.').pop()
+
     try {
-      const text = await file.text()
-      let data: any[] = []
-      if (file.name.toLowerCase().endsWith(".csv")) {
+      if (fileExtension === "csv") {
+        const text = await file.text()
         data = parseCSV(text)
-      } else if (file.name.toLowerCase().endsWith(".json")) {
+      } else if (fileExtension === "json") {
+        const text = await file.text()
         const parsed = JSON.parse(text)
         data = Array.isArray(parsed) ? parsed : parsed.data || []
+      } else if (fileExtension === "xls" || fileExtension === "xlsx") {
+        const arrayBuffer = await file.arrayBuffer()
+        const workbook = XLSX.read(arrayBuffer, { type: 'array' })
+        const sheetName = workbook.SheetNames[0]
+        const worksheet = workbook.Sheets[sheetName]
+        data = XLSX.utils.sheet_to_json(worksheet, { defval: "" })
       } else {
-        // try to detect by content
+        // Fallback for content detection, now handles text and binary files
+        const arrayBuffer = await file.arrayBuffer()
+        const decoder = new TextDecoder('utf-8')
+        const text = decoder.decode(arrayBuffer)
         if (text.trim().startsWith("{") || text.trim().startsWith("[")) {
           const parsed = JSON.parse(text)
           data = Array.isArray(parsed) ? parsed : parsed.data || []
@@ -44,9 +56,11 @@ export default function DataUpload({
           data = parseCSV(text)
         }
       }
+      
       onDataLoaded?.(data)
     } catch (e) {
-      alert("Failed to parse file. Please ensure it's valid CSV or JSON.")
+      console.error(e);
+      alert("Failed to parse file. Please ensure it's a valid CSV, JSON, or Excel file.")
     } finally {
       setLoading(false)
       setDragOver(false)
@@ -60,14 +74,13 @@ export default function DataUpload({
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleFiles(e.target.files)
-    // reset input
     if (inputRef.current) inputRef.current.value = ""
   }
 
   const RenderButton = () => (
     <Button type="button" onClick={() => inputRef.current?.click()} disabled={loading} className="w-full">
       <Upload className="mr-2 h-4 w-4" />
-      {loading ? "Parsing…" : "Upload your Data (CSV or JSON)"}
+      {loading ? "Parsing…" : "Upload your Data (CSV, JSON, or Excel)"}
     </Button>
   )
 
@@ -77,7 +90,7 @@ export default function DataUpload({
         <input
           ref={inputRef}
           type="file"
-          accept=".csv,.json,application/json,text/csv"
+          accept=".csv,.json,.xls,.xlsx,application/json,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
           className="hidden"
           onChange={onChange}
         />
@@ -95,15 +108,15 @@ export default function DataUpload({
       }}
       onDragLeave={() => setDragOver(false)}
       onDrop={onDrop}
-      aria-label="Drag and drop a CSV or JSON file here"
+      aria-label="Drag and drop a CSV, JSON, or Excel file here"
     >
       <Upload className="mb-2 h-6 w-6 text-muted-foreground" aria-hidden />
-      <p className="mb-2 text-sm">Drag & drop your CSV or JSON here</p>
+      <p className="mb-2 text-sm">Drag & drop your CSV, JSON, or Excel file here</p>
       <p className="mb-3 text-xs text-muted-foreground">No data is sent to a server</p>
       <input
         ref={inputRef}
         type="file"
-        accept=".csv,.json,application/json,text/csv"
+        accept=".csv,.json,.xls,.xlsx,application/json,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         className="hidden"
         onChange={onChange}
       />

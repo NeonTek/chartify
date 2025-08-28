@@ -231,10 +231,13 @@ export default function Page() {
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)+/g, "")
 
-  const onExportPNG = () => {
-    const name = title ? `${slugify(title)}.png` : "chartify-chart.png"
-    chartAPI?.exportPNG({ filename: name })
-  }
+    const onExportPNG = () => {
+      const randomString = Math.random().toString(36).substring(2, 8);         
+      const baseName = title ? slugify(title) : "chartify-chart";        
+      const uniqueName = `${baseName}-${randomString}.png`;
+      
+      chartAPI?.exportPNG({ filename: uniqueName });
+    }
 
   // Rehydrate state from URL hash if present
   useEffect(() => {
@@ -448,7 +451,7 @@ export default function Page() {
               {!rows.length ? (
                 <div className="flex h-[65vh] items-center justify-center">
                   <div className="max-w-md text-center">
-                    <h1 className="mb-2 text-2xl font-semibold">Upload your Data (CSV or JSON)</h1>
+                    <h1 className="mb-2 text-2xl font-semibold">Upload your Data (CSV, XLS or JSON)</h1>
                     <p className="mb-4 text-sm text-muted-foreground">
                       Drag a file into the left panel, or use the upload button to get started. All processing stays in
                       your browser.
