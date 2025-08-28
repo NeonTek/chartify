@@ -192,7 +192,7 @@ export default function Page() {
 
   // Share: encode state into URL hash
   const onShare = () => {
-    if (!rows.length) {
+    if (!rows) {
       toast({ title: "Nothing to share", description: "Upload data and configure a chart first." })
       return
     }
