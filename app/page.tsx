@@ -8,6 +8,8 @@ import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
 import { ExternalLink } from "lucide-react"
 import Image from "next/image"
+import { Header } from "@/components/header"
+import { Footer } from "@/components/Footer"
 
 export default function LandingPage() {
   const neontekApps = [
@@ -19,31 +21,7 @@ export default function LandingPage() {
   return (
     <div className="bg-background text-foreground">
       {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-background/90 backdrop-blur-sm transition-colors duration-300">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          {/* Logo and Product Name */}
-          <Link href="https://neontek.co.ke" className="flex items-center space-x-2">
-            <Image src="/neontek-logo(transparent).png" alt="NeonTek Logo" width={32} height={32} className="h-8 w-auto" />
-            <div className="hidden h-6 w-px bg-gray-300 md:block" />
-            <span className="text-xl font-bold tracking-tight text-foreground md:text-2xl">
-              Chartify
-            </span>
-          </Link>
-
-          {/* Navigation and CTA */}
-          <nav className="flex items-center space-x-4">
-            <Link href="https://neontek.co.ke/apps" className="hidden text-sm font-medium text-muted-foreground hover:text-cyan-500 transition-colors sm:inline-block">
-              Apps
-            </Link>
-            <Link href="/app">
-              <Button className="bg-cyan-500 text-white hover:bg-cyan-600 transition-colors duration-200">
-                Launch App
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <main>
@@ -182,70 +160,7 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="w-full bg-gray-900 text-gray-300">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
-            {/* Column 1: Brand Info */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Image src="/neontek-logo(transparent).png" alt="NeonTek Logo" width={40} height={40} className="h-10 w-auto" />
-                <span className="text-xl font-bold text-white">Chartify</span>
-              </div>
-              <p className="text-sm">
-                Chartify is a client-side data visualization tool by NeonTek, designed for speed, simplicity, and privacy.
-              </p>
-              <div className="flex items-center space-x-4">
-                <a href="https://twitter.com/neontek" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                  <Twitter className="h-6 w-6 text-gray-400 hover:text-cyan-500 transition-colors" />
-                </a>
-                <a href="https://github.com/neontek" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                  <Github className="h-6 w-6 text-gray-400 hover:text-cyan-500 transition-colors" />
-                </a>
-                <a href="https://linkedin.com/company/neontek" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                  <Linkedin className="h-6 w-6 text-gray-400 hover:text-cyan-500 transition-colors" />
-                </a>
-              </div>
-            </div>
-
-            {/* Column 2: Chartify */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-white">Chartify</h3>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/app" className="hover:text-cyan-500 transition-colors">Launch App</Link></li>
-                <li><Link href="#features" className="hover:text-cyan-500 transition-colors">Features</Link></li>
-                <li><Link href="/help" className="hover:text-cyan-500 transition-colors">Help</Link></li>
-                <li><Link href="https://blog.neontek.co.ke" className="hover:text-cyan-500 transition-colors">Blog</Link></li>
-              </ul>
-            </div>
-
-            {/* Column 3: NeonTek */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-white">NeonTek</h3>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="https://neontek.co.ke" className="hover:text-cyan-500 transition-colors">About Us</Link></li>
-                <li><Link href="https://neontek.co.ke/apps" className="hover:text-cyan-500 transition-colors">Our Apps</Link></li>
-                <li><Link href="https://neontek.co.ke/services" className="hover:text-cyan-500 transition-colors">Services</Link></li>
-                <li><Link href="https://neontek.co.ke/careers" className="hover:text-cyan-500 transition-colors">Careers</Link></li>
-              </ul>
-            </div>
-
-            {/* Column 4: Legal */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-white">Legal</h3>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="https://neontek.co.ke/legal/terms-of-use" className="hover:text-cyan-500 transition-colors">Terms of Use</Link></li>
-                <li><Link href="https://neontek.co.ke/legal/privacy-policy" className="hover:text-cyan-500 transition-colors">Privacy Policy</Link></li>
-                <li><Link href="https://neontek.co.ke/legal/cookie-policy" className="hover:text-cyan-500 transition-colors">Cookie Policy</Link></li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Copyright and Bottom Links */}
-          <div className="mt-12 border-t border-gray-800 pt-8 text-center text-sm">
-            <p>&copy; {new Date().getFullYear()} NeonTek. All Rights Reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
