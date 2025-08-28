@@ -478,7 +478,7 @@ export default function Page() {
                     showDataLabels={showDataLabels}
                     onReady={setChartAPI}
                   />
-                  <div className="mt-3 flex items-center justify-between gap-2 sm:hidden">
+                  <div className="mt-3 flex flex-wrap items-center justify-between gap-2 sm:hidden">
                     <Button variant="outline" onClick={onExportPNG} className="w-full bg-transparent">
                       <Download className="mr-2 h-4 w-4" /> Export PNG
                     </Button>
